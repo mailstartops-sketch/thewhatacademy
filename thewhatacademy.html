@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The What Academy — Know What Matters.</title>
+<meta name="description" content="Programs for aspiring founders, emerging leaders, campus talent, and the organisations that build them. By Pradeep Srinivasan.">
+<meta property="og:title" content="The What Academy — Know What Matters">
+<meta property="og:description" content="Before asking how to succeed, understand what truly matters.">
+<meta property="og:url" content="https://thewhatacademy.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #08284e; --cyan: #00aedc; --gold: #C8A55C;
+    --white: #F6F6F5; --black: #111111; --gray: #666666;
+    --light: #f4f4f4; --coral: #d8613c; --green: #6B8F71; --purple: #7B5EA7;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Poppins', sans-serif; color: var(--black); background: #fff; }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(8,40,78,0.97); backdrop-filter: blur(8px);
+    padding: 0 5%; display: flex; align-items: center;
+    justify-content: space-between; height: 64px;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo { width: 38px; height: 38px; background: var(--gold); border-radius: 4px;
+              display: flex; align-items: center; justify-content: center; }
+  .nav-logo span { color: var(--navy); font-weight: 800; font-size: 11px; letter-spacing: -0.5px; }
+  .nav-name { color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.75); font-size: 12px; font-weight: 500; letter-spacing: 0.3px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 9px 20px;
+             border-radius: 3px; font-weight: 700 !important; font-size: 11px !important;
+             letter-spacing: 0.8px !important; text-transform: uppercase; }
+  .nav-cta:hover { background: #b8954c !important; color: #fff !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; background: var(--navy);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 5% 60px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(0,174,220,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-eyebrow { color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; }
+  .hero h1 { color: #fff; font-size: clamp(38px, 5vw, 64px); font-weight: 800; line-height: 1.05; margin-bottom: 10px; }
+  .hero h1 em { color: var(--gold); font-style: italic; font-weight: 700; }
+  .hero-sub-tagline { color: rgba(255,255,255,0.45); font-size: 14px; font-weight: 400; font-style: italic; margin-bottom: 24px; letter-spacing: 0.3px; }
+  .hero-sub { color: rgba(255,255,255,0.6); font-size: 15px; font-weight: 400; line-height: 1.75; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 15px 32px; border-radius: 3px; font-weight: 700; font-size: 13px; letter-spacing: 0.3px; transition: all 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #b8954c; }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: #fff; padding: 13px 28px; border-radius: 3px; font-weight: 600; font-size: 13px; transition: all 0.2s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(200,165,92,0.25); border-radius: 12px; padding: 32px 28px; max-width: 380px; width: 100%; }
+  .hero-card-title { color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+  .program-pill { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+  .pill-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+  .pill-name { color: #fff; font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+  .pill-sub { color: rgba(255,255,255,0.5); font-size: 10px; font-weight: 400; }
+  .accent-line { height: 3px; background: linear-gradient(to right, var(--gold), var(--cyan)); margin: 24px 0 0; }
+
+  /* SECTIONS */
+  section { padding: 90px 5%; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow { color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 14px; }
+  .section-title { font-size: clamp(26px, 3vw, 40px); font-weight: 700; color: var(--navy); line-height: 1.15; margin-bottom: 18px; }
+  .section-sub { color: var(--gray); font-size: 15px; font-weight: 400; line-height: 1.7; max-width: 640px; }
+
+  /* WHO */
+  .who-section { background: var(--light); }
+  .who-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-top: 48px; }
+  .who-card { background: #fff; border-radius: 10px; padding: 28px 24px; border-top: 4px solid var(--gold); box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+  .who-icon { font-size: 26px; margin-bottom: 14px; }
+  .who-card h3 { color: var(--navy); font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .who-card p { color: var(--gray); font-size: 13px; font-weight: 400; line-height: 1.65; }
+
+  /* PROGRAMS — 2x2 grid */
+  .programs-section { background: #fff; }
+  .programs-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 32px; margin-top: 52px; }
+  .prog-card { border: 1px solid #e8e8e8; border-radius: 10px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; display: flex; flex-direction: column; }
+  .prog-card:hover { box-shadow: 0 8px 32px rgba(8,40,78,0.12); transform: translateY(-4px); }
+  .prog-header { padding: 28px 28px 20px; }
+  .prog-num { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .prog-card h3 { color: var(--navy); font-size: 19px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; }
+  .prog-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; margin-bottom: 14px; }
+  .prog-body { padding: 0 28px 28px; flex: 1; display: flex; flex-direction: column; }
+  .prog-body p { color: var(--gray); font-size: 13px; font-weight: 400; line-height: 1.7; margin-bottom: 20px; }
+  .prog-details { border-top: 1px solid #f0f0f0; padding-top: 18px; margin-top: auto; }
+  .prog-detail { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+  .prog-detail .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; width: 70px; flex-shrink: 0; padding-top: 2px; }
+  .prog-detail .value { font-size: 12px; font-weight: 400; color: var(--black); }
+  .prog-cta { display: block; margin: 24px 28px 28px; text-align: center; padding: 12px; font-size: 12px; font-weight: 700; border-radius: 4px; transition: all 0.2s; letter-spacing: 0.3px; }
+
+  /* LEADERSHIP ASSESSMENT */
+  .assessment-section { background: linear-gradient(135deg, #08284e 0%, #0d3a6e 100%); position: relative; overflow: hidden; }
+  .assessment-section::before {
+    content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,174,220,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .assessment-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .assessment-left .section-eyebrow { color: rgba(255,255,255,0.5); }
+  .assessment-left h2 { color: #fff; font-size: clamp(26px, 3vw, 40px); font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+  .assessment-left h2 em { color: var(--gold); font-style: italic; }
+  .assessment-left p { color: rgba(255,255,255,0.65); font-size: 14px; font-weight: 400; line-height: 1.75; margin-bottom: 18px; }
+  .assessment-dims { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 28px 0; }
+  .dim-chip { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
+  .dim-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dim-chip span { color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 500; }
+  .btn-cyan { background: var(--cyan); color: #fff; padding: 16px 36px; border-radius: 3px; font-weight: 700; font-size: 14px; display: inline-block; transition: all 0.2s; }
+  .btn-cyan:hover { background: #009bc4; }
+  .assessment-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(200,165,92,0.25); border-radius: 16px; padding: 36px 32px; }
+  .assessment-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .assessment-card-icon { width: 48px; height: 48px; background: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .assessment-card-header h3 { color: #fff; font-size: 17px; font-weight: 700; }
+  .assessment-card-header p { color: rgba(255,255,255,0.5); font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+  .assessment-steps { list-style: none; margin-bottom: 28px; }
+  .assessment-steps li { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .assessment-steps li:last-child { border-bottom: none; }
+  .step-num { width: 26px; height: 26px; background: var(--gold); color: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .step-text { color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 400; line-height: 1.5; padding-top: 3px; }
+  .assessment-note { background: rgba(0,174,220,0.1); border: 1px solid rgba(0,174,220,0.2); border-radius: 8px; padding: 14px 18px; }
+  .assessment-note p { color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 400; line-height: 1.55; margin: 0; }
+  .assessment-note strong { color: var(--cyan); }
+
+  /* PROGRAM DETAIL SECTIONS */
+  .prog-divider { text-align: center; padding: 60px 5% 0; }
+  .prog-divider-inner { max-width: 1100px; margin: 0 auto; border-top: 2px solid #e8e8e8; padding-top: 60px; }
+  .prog-divider h2 { font-size: clamp(22px, 2.5vw, 34px); font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+  .prog-divider p { color: var(--gray); font-size: 15px; font-weight: 400; }
+  .prog-detail-section { padding: 48px 5% 80px; }
+  .prog-detail-inner { max-width: 1100px; margin: 0 auto; }
+  .prog-detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 52px; }
+  .prog-detail-left h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 14px; margin-top: 32px; }
+  .prog-detail-left h3:first-child { margin-top: 0; }
+  .prog-detail-left p { color: var(--gray); font-size: 14px; font-weight: 400; line-height: 1.75; margin-bottom: 12px; }
+  .prog-detail-left ul { list-style: none; margin: 0 0 20px; }
+  .prog-detail-left ul li { color: var(--gray); font-size: 14px; font-weight: 400; padding: 7px 0 7px 22px; position: relative; border-bottom: 1px solid #f5f5f5; line-height: 1.5; }
+  .prog-detail-left ul li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 12px; top: 9px; }
+  .prog-sidebar { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 28px 24px; height: fit-content; position: sticky; top: 80px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .sidebar-row { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .sidebar-row:last-of-type { border-bottom: none; }
+  .sidebar-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .sidebar-value { font-size: 13px; font-weight: 500; color: var(--black); }
+  .sidebar-cta { display: block; text-align: center; padding: 14px; border-radius: 6px; font-size: 13px; font-weight: 700; margin-top: 20px; transition: all 0.2s; }
+
+  /* ABOUT */
+  .about-section { background: var(--navy); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; margin-top: 52px; }
+  .about-left h2 { color: #fff; font-size: clamp(24px, 2.5vw, 36px); font-weight: 700; margin-bottom: 24px; line-height: 1.25; }
+  .about-left h2 em { color: var(--gold); font-style: italic; }
+  .about-left p { color: rgba(255,255,255,0.65); font-size: 14px; font-weight: 400; line-height: 1.75; margin-bottom: 18px; }
+  .creds-list { list-style: none; margin: 28px 0; }
+  .creds-list li { color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 400; padding: 8px 0 8px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; }
+  .creds-list li::before { content: '◆'; position: absolute; left: 0; color: var(--gold); font-size: 8px; top: 12px; }
+  .btn-gold { background: var(--gold); color: var(--navy); padding: 14px 30px; border-radius: 3px; font-weight: 700; font-size: 13px; letter-spacing: 0.3px; display: inline-block; transition: all 0.2s; }
+  .btn-gold:hover { background: #b8954c; }
+  .quote-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(200,165,92,0.25); border-radius: 12px; padding: 40px 36px; }
+  .quote-mark { color: var(--gold); font-size: 80px; line-height: 0.6; margin-bottom: 20px; opacity: 0.4; font-weight: 700; }
+  .quote-text { color: rgba(255,255,255,0.85); font-size: 17px; font-weight: 400; line-height: 1.65; margin-bottom: 20px; }
+  .quote-text em { color: var(--gold); font-style: italic; font-weight: 600; }
+  .quote-attr { color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 500; letter-spacing: 1px; }
+  .brand-bridge { background: rgba(0,174,220,0.08); border: 1px solid rgba(0,174,220,0.2); border-radius: 8px; padding: 20px 24px; margin-top: 24px; }
+  .brand-bridge p { color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 400; line-height: 1.55; margin: 0; }
+  .brand-bridge a { color: var(--cyan); }
+
+  /* WAITLIST */
+  .waitlist-section { background: var(--light); }
+  .waitlist-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+  .waitlist-inner .section-sub { margin: 0 auto 40px; text-align: center; }
+  .waitlist-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; }
+  .waitlist-form input { flex: 1; padding: 14px 18px; border: 2px solid #ddd; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s; }
+  .waitlist-form input:focus { border-color: var(--navy); }
+  .waitlist-form button { background: var(--navy); color: #fff; padding: 14px 24px; border: none; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+  .waitlist-form button:hover { background: var(--gold); color: var(--navy); }
+  .waitlist-note { color: var(--gray); font-size: 12px; font-weight: 400; margin-top: 14px; }
+  .program-badges { display: flex; gap: 10px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+  .program-badge { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; border: 1px solid; }
+
+  /* FOOTER */
+  footer { background: var(--navy); padding: 48px 5% 32px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .footer-brand .fb-name { color: var(--gold); font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .footer-brand .fb-tagline { color: rgba(255,255,255,0.3); font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 14px; }
+  .footer-brand p { color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 400; line-height: 1.65; }
+  .footer-col h4 { color: rgba(255,255,255,0.35); font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 400; margin-bottom: 8px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 400; }
+  .footer-bottom a { color: rgba(255,255,255,0.4); font-size: 12px; font-weight: 400; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .programs-grid, .who-grid { grid-template-columns: 1fr; }
+    .hero-grid, .about-grid, .footer-grid, .assessment-inner, .prog-detail-grid { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .nav-links { display: none; }
+    .waitlist-form { flex-direction: column; }
+    .prog-sidebar { position: static; }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .programs-grid { grid-template-columns: 1fr 1fr; }
+    .who-grid { grid-template-columns: 1fr 1fr; }
+    .assessment-dims { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo"><span>TWA</span></div>
+    <div class="nav-name">The What Academy</div>
+  </div>
+  <div class="nav-links">
+    <a href="#programs">Programs</a>
+    <a href="#assessment">Leadership Assessment</a>
+    <a href="#about">About</a>
+    <a href="https://whyandhow.in" target="_blank">Why &amp; How Advisory ↗</a>
+    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <p class="hero-eyebrow">The What Academy</p>
+      <h1>Know What<br><em>Matters.</em></h1>
+      <p class="hero-sub-tagline">Before asking how to succeed, understand what truly matters.</p>
+      <p class="hero-sub">Programs for aspiring founders, emerging leaders, campus talent, and the organisations that develop them.</p>
+      <div class="hero-actions">
+        <a href="#programs" class="btn-primary">Explore Programs</a>
+        <a href="#assessment" class="btn-outline">Take the Assessment</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-title">Programs — 2026</div>
+        <div class="program-pill">
+          <div class="pill-icon" style="background:rgba(200,165,92,0.15);color:#C8A55C;">01</div>
+          <div class="pill-text">
+            <div class="pill-name">Corporate Readiness for Campus</div>
+            <div class="pill-sub">Colleges &amp; corporates · B2B</div>
+          </div>
+        </div>
+        <div class="program-pill">
+          <div class="pill-icon" style="background:rgba(123,94,167,0.15);color:#7B5EA7;">02</div>
+          <div class="pill-text">
+            <div class="pill-name">What Corporates Need to Know</div>
+            <div class="pill-sub">New-age employees · HR/L&amp;D</div>
+          </div>
+        </div>
+        <div class="program-pill">
+          <div class="pill-icon" style="background:rgba(0,174,220,0.15);color:#00aedc;">03</div>
+          <div class="pill-text">
+            <div class="pill-name">What It Takes to Be a Founder</div>
+            <div class="pill-sub">6-week cohort · Online + Bengaluru</div>
+          </div>
+        </div>
+        <div class="program-pill">
+          <div class="pill-icon" style="background:rgba(107,143,113,0.15);color:#6B8F71;">04</div>
+          <div class="pill-text">
+            <div class="pill-name">Relevance — Leadership Program</div>
+            <div class="pill-sub">Mid-career leaders · Coming soon</div>
+          </div>
+        </div>
+        <div class="accent-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who-section" id="who">
+  <div class="section-inner">
+    <p class="section-eyebrow">Who This Is For</p>
+    <h2 class="section-title">Four different starting points.<br>One philosophy.</h2>
+    <p class="section-sub">Before asking how to succeed, we need to understand what we're actually building — and why it matters.</p>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-icon">🎓</div>
+        <h3>Aspiring Founders</h3>
+        <p>You have the ambition and the idea. The What Academy gives you the operating reality most founder education skips.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🏛️</div>
+        <h3>Colleges &amp; Campuses</h3>
+        <p>You graduate students who are technically strong but operationally unprepared. Our campus programs bridge that gap before Day 1 at work.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🏢</div>
+        <h3>Corporates &amp; HR/L&amp;D</h3>
+        <p>You're managing a workforce that thinks, communicates, and works differently. Understanding them isn't optional anymore — it's a retention and performance issue.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🧭</div>
+        <h3>Emerging Leaders</h3>
+        <p>You're competent and ambitious. The question is whether you're relevant — to your organisation, your team, and the pace things are moving at.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS OVERVIEW -->
+<section class="programs-section" id="programs">
+  <div class="section-inner">
+    <p class="section-eyebrow">Programs</p>
+    <h2 class="section-title">Four programs.<br>Different buyers, different outcomes.</h2>
+    <div class="programs-grid">
+      <!-- Program 01 -->
+      <div class="prog-card">
+        <div class="prog-header" style="background:#fdf9f2;border-bottom:1px solid #f0e8d8;">
+          <div class="prog-num" style="color:#C8A55C;">Program 01</div>
+          <span class="prog-tag" style="background:rgba(200,165,92,0.12);color:#C8A55C;">Available Now</span>
+          <h3>Corporate Readiness<br>for Campus</h3>
+        </div>
+        <div class="prog-body">
+          <p>Students graduate with technical knowledge but without business fluency. This 2-day intensive teaches the operating reality — how organisations actually work, what accountability looks like, and how to navigate the first three years of a career.</p>
+          <div class="prog-details">
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Format</span><span class="value">2-day workshop · On-campus or virtual</span></div>
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Buyer</span><span class="value">Colleges, universities, HR heads</span></div>
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Batch</span><span class="value">30–120 students per engagement</span></div>
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Pricing</span><span class="value"><a href="mailto:pradeep@whyandhow.in?subject=Corporate Readiness Program — Pricing Enquiry" style="color:#C8A55C;font-weight:600;">Enquire for pricing →</a></span></div>
+          </div>
+        </div>
+        <a href="#prog-01" class="prog-cta" style="background:#C8A55C;color:#08284e;">See Full Program Details →</a>
+      </div>
+      <!-- Program 02 -->
+      <div class="prog-card">
+        <div class="prog-header" style="background:#f7f4fc;border-bottom:1px solid #e8e0f4;">
+          <div class="prog-num" style="color:#7B5EA7;">Program 02</div>
+          <span class="prog-tag" style="background:rgba(123,94,167,0.12);color:#7B5EA7;">Available Now</span>
+          <h3>What Corporates Need to Know About New-Age Employees</h3>
+        </div>
+        <div class="prog-body">
+          <p>The workforce has changed. This program helps HR leaders, L&D heads, and senior managers understand the new-age employee — not to pamper them, but to lead them effectively and retain the talent worth keeping.</p>
+          <div class="prog-details">
+            <div class="prog-detail"><span class="label" style="color:#7B5EA7;">Format</span><span class="value">Half-day or full-day workshop</span></div>
+            <div class="prog-detail"><span class="label" style="color:#7B5EA7;">Buyer</span><span class="value">HR / L&amp;D heads, mid-size corporates</span></div>
+            <div class="prog-detail"><span class="label" style="color:#7B5EA7;">Audience</span><span class="value">Senior managers, people leaders</span></div>
+            <div class="prog-detail"><span class="label" style="color:#7B5EA7;">Pricing</span><span class="value"><a href="mailto:pradeep@whyandhow.in?subject=New-Age Employees Program — Pricing Enquiry" style="color:#7B5EA7;font-weight:600;">Enquire for pricing →</a></span></div>
+          </div>
+        </div>
+        <a href="#prog-02" class="prog-cta" style="background:#7B5EA7;color:#fff;">See Full Program Details →</a>
+      </div>
+      <!-- Program 03 -->
+      <div class="prog-card" style="border: 2px solid #08284e;">
+        <div class="prog-header" style="background:#08284e;">
+          <div class="prog-num" style="color:rgba(255,255,255,0.5);">Program 03</div>
+          <span class="prog-tag" style="background:rgba(0,174,220,0.2);color:#00aedc;">Waitlist Open</span>
+          <h3 style="color:#fff;">What It Takes<br>to Be a Founder</h3>
+        </div>
+        <div class="prog-body">
+          <p>Most founder education focuses on idea validation and funding. This cohort focuses on the operating reality — what it actually feels like to build, what decisions haunt you later, and what most founders aren't told before they start.</p>
+          <div class="prog-details">
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Format</span><span class="value">6 weeks · 2 sessions/week + 1 in-person day</span></div>
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Location</span><span class="value">Online + Bengaluru (in-person day)</span></div>
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Cohort</span><span class="value">15–20 people (small by design)</span></div>
+            <div class="prog-detail"><span class="label" style="color:#C8A55C;">Investment</span><span class="value"><a href="mailto:pradeep@whyandhow.in?subject=Founder Cohort — Pricing Enquiry" style="color:#C8A55C;font-weight:600;">Enquire for pricing →</a></span></div>
+          </div>
+        </div>
+        <a href="#prog-03" class="prog-cta" style="background:#C8A55C;color:#08284e;">See Full Program Details →</a>
+      </div>
+      <!-- Program 04 -->
+      <div class="prog-card">
+        <div class="prog-header" style="background:#f4f8f4;border-bottom:1px solid #e0ece0;">
+          <div class="prog-num" style="color:#6B8F71;">Program 04</div>
+          <span class="prog-tag" style="background:rgba(107,143,113,0.12);color:#6B8F71;">Coming Soon · Q3 2026</span>
+          <h3>Relevance —<br>Leadership Program</h3>
+        </div>
+        <div class="prog-body">
+          <p>For mid-career leaders wondering what relevant leadership looks like in an era of AI disruption, compressed timelines, and teams that work differently than they did five years ago. How do you stay indispensable?</p>
+          <div class="prog-details">
+            <div class="prog-detail"><span class="label" style="color:#6B8F71;">Format</span><span class="value">Workshop series · Linked to podcast</span></div>
+            <div class="prog-detail"><span class="label" style="color:#6B8F71;">Buyer</span><span class="value">Corporates · L&amp;D / HR departments</span></div>
+            <div class="prog-detail"><span class="label" style="color:#6B8F71;">Audience</span><span class="value">Senior managers, mid-career leaders</span></div>
+            <div class="prog-detail"><span class="label" style="color:#6B8F71;">Interest</span><span class="value">pradeep@whyandhow.in</span></div>
+          </div>
+        </div>
+        <a href="#prog-04" class="prog-cta" style="background:#6B8F71;color:#fff;">See Full Program Details →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP ASSESSMENT -->
+<section class="assessment-section" id="assessment">
+  <div class="section-inner assessment-inner">
+    <div class="assessment-left">
+      <p class="section-eyebrow">Free Tool</p>
+      <h2>Where are you <em>right now</em><br>as a leader?</h2>
+      <p>Before you can develop as a leader, you need an honest read on where you actually stand. The Leadership Needs Analysis is a free 10-minute assessment that maps your current profile across 6 dimensions.</p>
+      <p>No generic quiz. No instant score dump. You get a personalised PDF profile — reviewed and sent to you directly by Pradeep — with observations, context, and a reflection question worth sitting with.</p>
+      <div class="assessment-dims">
+        <div class="dim-chip"><div class="dim-dot" style="background:#C8A55C;"></div><span>Self-Awareness</span></div>
+        <div class="dim-chip"><div class="dim-dot" style="background:#00aedc;"></div><span>Decision Confidence</span></div>
+        <div class="dim-chip"><div class="dim-dot" style="background:#7B5EA7;"></div><span>Delegation Comfort</span></div>
+        <div class="dim-chip"><div class="dim-dot" style="background:#d8613c;"></div><span>Conflict Navigation</span></div>
+        <div class="dim-chip"><div class="dim-dot" style="background:#6B8F71;"></div><span>Direction Clarity</span></div>
+        <div class="dim-chip"><div class="dim-dot" style="background:#08284e;border:1px solid rgba(255,255,255,0.2);"></div><span>Growth Readiness</span></div>
+      </div>
+      <a href="leadership-assessment.html" class="btn-cyan">Take the Free Assessment →</a>
+    </div>
+    <div class="assessment-right">
+      <div class="assessment-card">
+        <div class="assessment-card-header">
+          <div class="assessment-card-icon">📊</div>
+          <div>
+            <h3>Leadership Needs Analysis</h3>
+            <p>Free · 10 minutes · PDF report included</p>
+          </div>
+        </div>
+        <ol class="assessment-steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-text">Answer 11 questions about where you are in your leadership journey right now</div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-text">Your profile across 6 dimensions is calculated and shown on screen</div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-text">Pradeep reviews your results and emails you a personalised 4-page PDF profile</div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div class="step-text">If it resonates, book a free 30-minute conversation to go deeper</div>
+          </li>
+        </ol>
+        <div class="assessment-note">
+          <p><strong>No AI-generated feedback.</strong> Every PDF is reviewed and sent by Pradeep personally. That's why it's limited — and why it's worth doing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM 01 DETAIL -->
+<div class="prog-divider" id="prog-01">
+  <div class="prog-divider-inner">
+    <p style="color:#C8A55C;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;">Program 01 — Deep Dive</p>
+    <h2>Corporate Readiness for Campus</h2>
+    <p style="color:#666;font-size:15px;max-width:600px;margin:12px auto 0;font-weight:400;">Bridging the gap between academic preparation and workplace reality.</p>
+  </div>
+</div>
+<div class="prog-detail-section">
+  <div class="prog-detail-inner">
+    <div class="prog-detail-grid">
+      <div class="prog-detail-left">
+        <h3>The Problem This Solves</h3>
+        <p>Most campus placements place technically competent graduates into organisations — and then wonder why the first year is so painful for everyone involved. Students know their subject. They don't know how organisations actually work.</p>
+        <p>They haven't been taught what accountability really looks like. They don't understand why communication matters more than capability in the first 90 days. They've never had to navigate a hierarchy, manage up, or deal with ambiguity that has no answer key. This program fills that gap before it becomes a performance issue.</p>
+        <h3>What the Program Covers</h3>
+        <ul>
+          <li>How organisations actually work — structure, hierarchy, and how decisions get made</li>
+          <li>What accountability means in a professional context (beyond "meeting deadlines")</li>
+          <li>Communication that gets taken seriously: written, verbal, and in meetings</li>
+          <li>Managing up — how to work with managers who have different styles and pressures</li>
+          <li>The first 90 days: what to prioritise, what to avoid, what to prove</li>
+          <li>How to navigate ambiguity when there's no rubric</li>
+          <li>Professional presence and credibility — what builds it, what destroys it</li>
+        </ul>
+        <h3>Who This Is For</h3>
+        <p>Colleges and universities who want to differentiate their placement outcomes. Corporate HR teams who want to reduce the cost of onboarding underperformance. The audience is final-year students or recent graduates across any discipline.</p>
+        <h3>Format and Delivery</h3>
+        <p>A 2-day intensive workshop, delivered on-campus or virtually. Cohorts of 30–120 students. High interaction, no slide-reading — Pradeep runs this as a conversation, not a lecture. Real scenarios, real questions, real answers.</p>
+      </div>
+      <div class="prog-sidebar">
+        <div class="sidebar-row"><div class="sidebar-label" style="color:#C8A55C;">Status</div><div class="sidebar-value">Available Now</div></div>
+        <div class="sidebar-row"><div class="sidebar-label" style="color:#C8A55C;">Format</div><div class="sidebar-value">2-day workshop</div></div>
+        <div class="sidebar-row"><div class="sidebar-label" style="color:#C8A55C;">Delivery</div><div class="sidebar-value">On-campus or virtual</div></div>
+        <div class="sidebar-row"><div class="sidebar-label" style="color:#C8A55C;">Batch Size</div><div class="sidebar-value">30–120 students</div></div>
+        <div class="sidebar-row"><div class="sidebar-label" style="color:#C8A55C;">Buyer</div><div class="sidebar-value">Colleges, universities, corporate HR</div></div>
+        <a href="mailto:pradeep@whyandhow.in?subject=Corporate Readiness Program — Pricing Enquiry" class="sidebar-cta" style="background:#C8A55C;color:#08284e;">Enquire for Pricing →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAM 02 DETAIL -->
+<div class="prog-divider" id="prog-02" style="background:#fafafa;">
+  <div class="prog-divider-inner">
+    <p style="color:#7B5EA7;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;">Program 02 — Deep Dive</p>
+    <h2>What Corporates Need to Know About New-Age Employees</h2>
+    <p style="color:#666;font-size:15px;max-width:600px;margin:12px auto 0;font-weight:400;">Understanding a workforce that has fundamentally changed.</p>
+  </div>
+</div>
+<div class="prog-detail-section" style="background:#fafafa;">
+  <div class="prog-detail-inner">
+    <div class="prog-detail-grid">
+      <div class="prog-detail-left">
+        <h3>The Problem This Solves</h3>
+        <p>The workforce born between 1995 and 2010 communicates differently, processes feedback differently, and defines meaningful work differently than every generation before them. And most organisations are still trying to manage them with approaches that worked in 2005.</p>
+        <p>The result: high attrition, disengagement that looks like attitude problems, and a widening gap between what organisations offer and what this workforce actually needs. The cost is real — in time, in money, and in institutional knowledge that walks out the door.</p>
+        <p>This program doesn't validate entitlement. It builds understanding — so that HR heads and senior managers can lead this workforce more effectively, retain the talent worth keeping, and stop misreading what's actually happening.</p>
+        <h3>What the Program Covers</h3>
+        <ul>
+          <li>How the new-age employee thinks about work, hierarchy, and loyalty</li>
+          <li>Why they leave — what the exit surveys don't capture</li>
+          <li>The difference between entitlement and unmet clarity (it matters)</li>
+          <li>How to give feedback they'll actually receive</li>
+          <li>What psychological safety means operationally, not philosophically</li>
+          <li>Retention: what works, what's performative, and what costs nothing</li>
+          <li>Managing the tension between accountability and autonomy</li>
+        </ul>
+        <h3>Who This Is For</h3>
+        <p>HR heads, L&D leaders, and senior managers in mid-size and large organisations who are hiring, managing, and trying to retain Gen Z and younger millennial employees. The audience is people leaders — not the employees themselves.</p>
+      </div>
+      <div class="prog-sidebar" style="background:#f7f4fc;border-color:#e8e0f4;">
+        <div class="sidebar-row" style="border-color:#e8e0f4;"><div class="sidebar-label" style="color:#7B5EA7;">Status</div><div class="sidebar-value">Available Now</div></div>
+        <div class="sidebar-row" style="border-color:#e8e0f4;"><div class="sidebar-label" style="color:#7B5EA7;">Format</div><div class="sidebar-value">Half-day or full-day workshop</div></div>
+        <div class="sidebar-row" style="border-color:#e8e0f4;"><div class="sidebar-label" style="color:#7B5EA7;">Delivery</div><div class="sidebar-value">On-site or virtual</div></div>
+        <div class="sidebar-row" style="border-color:#e8e0f4;"><div class="sidebar-label" style="color:#7B5EA7;">Buyer</div><div class="sidebar-value">HR/L&D heads, mid-size corporates</div></div>
+        <div class="sidebar-row" style="border-color:#e8e0f4;"><div class="sidebar-label" style="color:#7B5EA7;">Audience</div><div class="sidebar-value">Senior managers, people leaders</div></div>
+        <a href="mailto:pradeep@whyandhow.in?subject=New-Age Employees Program — Pricing Enquiry" class="sidebar-cta" style="background:#7B5EA7;color:#fff;">Enquire for Pricing →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAM 03 DETAIL -->
+<div class="prog-divider" id="prog-03">
+  <div class="prog-divider-inner">
+    <p style="color:#00aedc;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;">Program 03 — Deep Dive</p>
+    <h2>What It Takes to Be a Founder</h2>
+    <p style="color:#666;font-size:15px;max-width:600px;margin:12px auto 0;font-weight:400;">The operating reality most founder education won't tell you about.</p>
+  </div>
+</div>
+<div class="prog-detail-section">
+  <div class="prog-detail-inner">
+    <div class="prog-detail-grid">
+      <div class="prog-detail-left">
+        <h3>The Problem This Solves</h3>
+        <p>Most founder education is taught by people who've either never built a business, or who've had such a specific experience that it doesn't generalise. It focuses on funding rounds, product-market fit, and pitch decks — and almost completely ignores what it actually feels like to build something when you don't know if it'll work.</p>
+        <p>This cohort is different. It's not about validation frameworks or investor relations. It's about the operating reality — the decisions that feel impossible, the loneliness that nobody warns you about, the things that will haunt you at 2am if you're not prepared for them.</p>
+        <h3>What the Cohort Covers</h3>
+        <ul>
+          <li>What you're actually signing up for — the psychological reality of founding</li>
+          <li>How to know if your idea is a business or a hobby (the honest version)</li>
+          <li>First hires: what to look for, what to avoid, when to make the call</li>
+          <li>Money: what founder finance actually looks like day-to-day</li>
+          <li>How to sell when you're not a salesperson — and why you have to anyway</li>
+          <li>What "early customers" really teach you (if you're paying attention)</li>
+          <li>When to pivot, when to persist, and how to tell the difference</li>
+          <li>The things most founders wish someone had told them before they started</li>
+        </ul>
+        <h3>Format</h3>
+        <p>6 weeks, 2 sessions per week (evenings, online), plus one full in-person day in Bengaluru. Cohort size is 15–20 — small by design, so that real conversation is possible. No lecture format. Every session is built around questions, scenarios, and honest discussion.</p>
+        <h3>Who Should Apply</h3>
+        <p>Aspiring founders who are 6–24 months from starting something. People who are serious — not just curious. You don't need to have a business yet, but you should be genuinely considering it. This cohort is not for passive learning.</p>
+      </div>
+      <div class="prog-sidebar" style="background:#08284e;border-color:#0d3a6e;">
+        <div class="sidebar-row" style="border-color:rgba(255,255,255,0.08);"><div class="sidebar-label" style="color:#00aedc;">Status</div><div class="sidebar-value" style="color:#fff;">Waitlist Open</div></div>
+        <div class="sidebar-row" style="border-color:rgba(255,255,255,0.08);"><div class="sidebar-label" style="color:#00aedc;">Duration</div><div class="sidebar-value" style="color:#fff;">6 weeks</div></div>
+        <div class="sidebar-row" style="border-color:rgba(255,255,255,0.08);"><div class="sidebar-label" style="color:#00aedc;">Sessions</div><div class="sidebar-value" style="color:#fff;">2× per week + 1 in-person day</div></div>
+        <div class="sidebar-row" style="border-color:rgba(255,255,255,0.08);"><div class="sidebar-label" style="color:#00aedc;">Location</div><div class="sidebar-value" style="color:#fff;">Online + Bengaluru</div></div>
+        <div class="sidebar-row" style="border-color:rgba(255,255,255,0.08);"><div class="sidebar-label" style="color:#00aedc;">Cohort Size</div><div class="sidebar-value" style="color:#fff;">15–20 people</div></div>
+        <div class="sidebar-row" style="border-color:rgba(255,255,255,0.08);"><div class="sidebar-label" style="color:#00aedc;">Investment</div><div class="sidebar-value" style="color:#fff;"><a href="mailto:pradeep@whyandhow.in?subject=Founder Cohort — Investment Enquiry" style="color:#C8A55C;font-weight:600;">Enquire for details →</a></div></div>
+        <a href="#waitlist" class="sidebar-cta" style="background:#C8A55C;color:#08284e;">Join the Waitlist →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAM 04 DETAIL -->
+<div class="prog-divider" id="prog-04" style="background:#f4f8f4;">
+  <div class="prog-divider-inner">
+    <p style="color:#6B8F71;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;">Program 04 — Deep Dive</p>
+    <h2>Relevance — Leadership Program</h2>
+    <p style="color:#666;font-size:15px;max-width:600px;margin:12px auto 0;font-weight:400;">How mid-career leaders stay indispensable as everything changes around them.</p>
+  </div>
+</div>
+<div class="prog-detail-section" style="background:#f4f8f4;">
+  <div class="prog-detail-inner">
+    <div class="prog-detail-grid">
+      <div class="prog-detail-left">
+        <h3>The Question Nobody Is Asking Out Loud</h3>
+        <p>Most organisations aren't openly discussing which of their senior managers are becoming irrelevant. But the conversation is happening in boardrooms and HR reviews every quarter. Mid-career leaders — people with 10, 15, 20 years of experience — are suddenly finding that what made them successful in the past isn't automatically going to keep them relevant going forward.</p>
+        <p>AI is changing what knowledge work looks like. Teams that used to require deep expertise now require something else: judgment, clarity, and the ability to navigate uncertainty. The leaders who thrive in the next decade won't be the most experienced — they'll be the most relevant.</p>
+        <p>This program answers the question: what does relevant leadership look like now?</p>
+        <h3>What the Program Will Cover</h3>
+        <ul>
+          <li>What relevance actually means in a leadership context — it's not what most people think</li>
+          <li>How AI is changing the value of experience, expertise, and institutional knowledge</li>
+          <li>The leadership skills that compound in value as everything else gets automated</li>
+          <li>How to lead teams that are more technically capable than you are in some areas</li>
+          <li>Presence and influence — what it looks like in 2026 and beyond</li>
+          <li>How to avoid the trap of leading the way you were led</li>
+        </ul>
+        <h3>Format and Connection to the Podcast</h3>
+        <p>The Relevance Leadership Program is designed as a workshop series for corporate teams, linked to the Relevance podcast hosted by Pradeep. Programme participants will have direct access to podcast guests and live conversation sessions. Details being finalised for Q3 2026 launch.</p>
+        <h3>Express Interest</h3>
+        <p>If you're an HR/L&D head or senior leader who wants early access, or wants to explore bringing this into your organisation, reach out directly to pradeep@whyandhow.in with the subject "Relevance Program".</p>
+      </div>
+      <div class="prog-sidebar" style="background:#fff;border-color:#e0ece0;">
+        <div class="sidebar-row" style="border-color:#e0ece0;"><div class="sidebar-label" style="color:#6B8F71;">Status</div><div class="sidebar-value">Coming Soon · Q3 2026</div></div>
+        <div class="sidebar-row" style="border-color:#e0ece0;"><div class="sidebar-label" style="color:#6B8F71;">Format</div><div class="sidebar-value">Workshop series</div></div>
+        <div class="sidebar-row" style="border-color:#e0ece0;"><div class="sidebar-label" style="color:#6B8F71;">Delivery</div><div class="sidebar-value">On-site or virtual</div></div>
+        <div class="sidebar-row" style="border-color:#e0ece0;"><div class="sidebar-label" style="color:#6B8F71;">Buyer</div><div class="sidebar-value">Corporates · L&D / HR departments</div></div>
+        <div class="sidebar-row" style="border-color:#e0ece0;"><div class="sidebar-label" style="color:#6B8F71;">Audience</div><div class="sidebar-value">Senior managers, mid-career leaders</div></div>
+        <div class="sidebar-row" style="border-color:#e0ece0;"><div class="sidebar-label" style="color:#6B8F71;">Podcast</div><div class="sidebar-value">Linked to Relevance podcast</div></div>
+        <a href="mailto:pradeep@whyandhow.in?subject=Relevance Program Interest" class="sidebar-cta" style="background:#6B8F71;color:#fff;">Express Interest →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <p class="section-eyebrow" style="color:rgba(255,255,255,0.35);">The Founder</p>
+    <div class="about-grid">
+      <div class="about-left">
+        <h2>Built by someone who's been <em>inside</em> the system.</h2>
+        <p>The What Academy was created by Pradeep Srinivasan — with a simple belief: before asking how to succeed, we must first understand what truly matters.</p>
+        <p>Pradeep brings 24 years of operational leadership across some of India's and the world's largest organisations. He's not a trainer who teaches theory — he's an operator who builds structure for a living.</p>
+        <ul class="creds-list">
+          <li>Director, Enrichment — Gracenote (global operations across 85 countries)</li>
+          <li>Associate Director — Nielsen (analytics frameworks, 15+ KPIs)</li>
+          <li>Deputy General Manager — Repucom / Hinduja</li>
+          <li>Senior Management Program — IIM Kozhikode</li>
+          <li>Founder, Why and How Advisory (2023 – present)</li>
+        </ul>
+        <a href="https://whyandhow.in/about" target="_blank" class="btn-gold">About Pradeep →</a>
+        <div class="brand-bridge">
+          <p>If you're running a business between ₹10 Cr and ₹150 Cr, Pradeep also runs <a href="https://whyandhow.in" target="_blank">Why and How Advisory</a> — operational consulting for founder-led businesses.</p>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <p class="quote-text">Most people ask <em>how</em> before they're clear on <em>what</em>.<br><br>What business am I actually building? What leader do I need to become? What kind of organisation does this need to be?<br><br>Get the <em>what</em> right, and the <em>how</em> becomes much clearer.</p>
+          <p class="quote-attr">— Pradeep Srinivasan, Founder, The What Academy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="waitlist-section" id="waitlist">
+  <div class="section-inner">
+    <div class="waitlist-inner">
+      <p class="section-eyebrow" style="text-align:center;">Be First</p>
+      <h2 class="section-title" style="text-align:center;">Join the Waitlist</h2>
+      <p class="section-sub">The founder cohort (Program 03) launches when we have 15 committed names. Join the waitlist — no commitment, just early access and first notification when dates are set.</p>
+      <div class="program-badges" style="margin-top:28px;">
+        <span class="program-badge" style="border-color:#C8A55C;color:#C8A55C;">Corporate Readiness</span>
+        <span class="program-badge" style="border-color:#7B5EA7;color:#7B5EA7;">New-Age Employees</span>
+        <span class="program-badge" style="border-color:#08284e;color:#08284e;background:#EEF3F8;">Founder Cohort</span>
+        <span class="program-badge" style="border-color:#6B8F71;color:#6B8F71;">Relevance Program</span>
+      </div>
+      <form class="waitlist-form" id="wl-form" action="https://formspree.io/f/xqeoglwe" method="POST">
+        <input type="hidden" name="_subject" value="🎓 What Academy Waitlist Signup">
+        <input type="email" name="email" placeholder="Your email address" required>
+        <button type="submit">Join Waitlist</button>
+      </form>
+      <p class="waitlist-note">No spam. One email when the cohort opens. That's it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="fb-name">The What Academy</div>
+        <div class="fb-tagline">Know What Matters</div>
+        <p>Programs for founders, leaders, campus talent,<br>and the organisations that build them.<br><br>Bengaluru, India &nbsp;·&nbsp; thewhatacademy.com</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <a href="#prog-01">Corporate Readiness</a>
+        <a href="#prog-02">New-Age Employees</a>
+        <a href="#prog-03">Founder Cohort</a>
+        <a href="#prog-04">Relevance Program</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="leadership-assessment.html">Leadership Assessment</a>
+        <a href="mailto:pradeep@whyandhow.in">pradeep@whyandhow.in</a>
+        <a href="https://linkedin.com/in/pradeepakumar" target="_blank">LinkedIn</a>
+        <a href="https://whyandhow.in" target="_blank">Why and How Advisory</a>
+        <a href="https://audit.whyandhow.in" target="_blank">Free Business Audit</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The What Academy · Pradeep Srinivasan · Know What Matters</p>
+      <a href="https://whyandhow.in">Why and How Advisory →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 20 ? 'rgba(8,40,78,0.99)' : 'rgba(8,40,78,0.97)';
+  });
+  const form = document.getElementById('wl-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      btn.textContent = 'Joining...';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST', body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.innerHTML = '<p style="color:#6B8F71;font-size:15px;font-weight:600;text-align:center;padding:20px;">You\'re on the list. We\'ll be in touch.</p>';
+        }
+      } catch(err) { btn.textContent = 'Join Waitlist'; }
+    });
+  }
+</script>
+</body>
+</html>
