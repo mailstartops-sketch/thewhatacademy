@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Needs Analysis — The What Academy</title>
+<meta name="description" content="A 5-minute leadership assessment. Find out where you are in your leadership journey and what coaching could look like from here.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #08284e; --gold: #C8A55C; --cyan: #00aedc;
+  --white: #F6F6F5; --light: #f4f6f9; --gray: #777;
+  --green: #6B8F71; --purple: #7B5EA7;
+}
+body { font-family: 'Poppins', sans-serif; background: var(--light); color: var(--navy); min-height: 100vh; }
+* { -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
+/* HEADER */
+.hdr { background: var(--navy); padding: 14px 24px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10; }
+.hdr-logo { width: 32px; height: 32px; background: var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; color: var(--navy); flex-shrink: 0; }
+.hdr-name { color: #fff; font-size: 14px; font-weight: 700; }
+.hdr-sub { color: rgba(255,255,255,0.45); font-size: 11px; margin-left: auto; }
+/* PROGRESS */
+.prog-bar { height: 3px; background: rgba(200,165,92,0.2); }
+.prog-fill { height: 3px; background: var(--gold); transition: width 0.4s ease; }
+/* CARD */
+.card { background: #fff; border-radius: 14px; padding: 40px; box-shadow: 0 4px 24px rgba(8,40,78,0.08); margin-top: 32px; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+.q-num { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; font-weight: 600; }
+.q-text { font-size: 21px; line-height: 1.35; color: var(--navy); margin-bottom: 8px; font-weight: 600; }
+.q-hint { font-size: 12px; color: #aaa; margin-bottom: 22px; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt { border: 2px solid #e8ecf0; border-radius: 10px; padding: 16px 20px; cursor: pointer; font-size: 14px; color: #444; line-height: 1.4; transition: all 0.18s; text-align: left; background: #fff; width: 100%; }
+.opt:hover { border-color: var(--gold); color: var(--navy); background: #fdf9f2; }
+.opt.sel { border-color: var(--navy); background: var(--navy); color: #fff; }
+.opt.sel:hover { background: var(--navy); border-color: var(--navy); }
+.opt.none-opt { border-style: dashed; color: #999; font-style: italic; border-color: #d0d8e0; }
+.opt.none-opt:hover { border-color: #bbb; background: #f9f9f9; color: #777; }
+.opt.none-opt.sel { border-color: #999; background: #f5f5f5; color: #666; font-style: italic; }
+.opt.at-max { opacity: 0.4; cursor: not-allowed; }
+.opt.at-max:hover { border-color: #e8ecf0; color: #444; background: #fff; }
+.none-input { margin-top: 14px; }
+.none-input input { width: 100%; border: 2px solid #e0e6ed; border-radius: 8px; padding: 14px 16px; font-family: Arial; font-size: 14px; outline: none; transition: border-color 0.2s; }
+.none-input input:focus { border-color: var(--navy); }
+.next-wrap { margin-top: 20px; display: flex; justify-content: flex-end; }
+/* INTRO / PROFILE */
+.badge { display: inline-block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 5px 12px; border-radius: 20px; margin-bottom: 20px; font-weight: 600; }
+.hero-t { font-size: clamp(26px, 4vw, 38px); line-height: 1.2; margin-bottom: 16px; font-weight: 700; }
+.hero-t em { color: var(--gold); font-style: italic; }
+.sub { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 28px; font-weight: 300; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.pill { font-size: 11px; color: var(--gray); background: #eef2f6; padding: 6px 14px; border-radius: 20px; }
+.btn { display: inline-block; background: var(--navy); color: #fff; font-weight: 600; font-size: 14px; padding: 16px 36px; border-radius: 6px; cursor: pointer; border: none; transition: background 0.2s; letter-spacing: 0.3px; }
+.btn:hover { background: var(--gold); color: var(--navy); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn:disabled:hover { background: var(--navy); color: #fff; }
+.btn-g { background: var(--gold); color: var(--navy); }
+.btn-g:hover { background: #b8954c; color: #fff; }
+.form-group { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-size: 12px; color: #888; font-weight: 500; }
+.form-input { border: 2px solid #e0e6ed; border-radius: 8px; padding: 14px 16px; font-family: 'Poppins', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%; background: #fff; }
+.form-input:focus { border-color: var(--navy); }
+select.form-input { cursor: pointer; appearance: auto; }
+.form-err { color: #c0392b; font-size: 12px; }
+.profile-title { font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.profile-sub { font-size: 14px; color: #888; margin-bottom: 24px; line-height: 1.6; font-weight: 300; }
+/* RESULTS */
+.result-hdr { background: var(--navy); border-radius: 14px; padding: 36px; margin-top: 32px; animation: fadeUp 0.35s ease; }
+.stage-badge-lbl { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 8px; font-weight: 500; }
+.stage-name { color: var(--gold); font-size: clamp(20px,3vw,26px); font-weight: 700; margin-bottom: 12px; line-height: 1.25; }
+.stage-desc { color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.75; margin-bottom: 24px; font-weight: 300; }
+.score-row { display: flex; align-items: flex-start; gap: 20px; background: rgba(255,255,255,0.06); border-radius: 10px; padding: 18px 20px; }
+.score-big { text-align: center; flex-shrink: 0; min-width: 72px; }
+.score-num { font-size: 50px; font-weight: 500; color: #fff; line-height: 1; }
+.score-unit { font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 1px; margin-top: 4px; font-weight: 400; }
+.dims-block { flex: 1; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px; }
+.dims-title { font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.28); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+.dim-row { margin-bottom: 8px; }
+.dim-label { font-size: 12px; color: rgba(255,255,255,0.42); margin-bottom: 4px; font-weight: 400; }
+.dim-bar-empty { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; }
+.dims-note { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 11px; color: rgba(255,255,255,0.28); font-style: italic; line-height: 1.5; font-weight: 300; }
+/* RESULT SECTIONS */
+.rsec { background: #fff; border-radius: 14px; padding: 32px; margin-top: 14px; animation: fadeUp 0.35s ease; }
+.rsec-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 600; }
+.rsec p { font-size: 14px; color: #555; line-height: 1.75; font-weight: 400; }
+.rsec-footer { margin-top: 16px; padding-top: 14px; border-top: 1px solid #f0f0f0; font-size: 13px; color: #aaa; font-style: italic; line-height: 1.6; font-weight: 300; }
+/* EMAIL / SEND */
+.email-sent-display { background: #f4f6f9; border: 1px solid #e0e6ed; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #333; font-weight: 500; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.email-sent-note { font-size: 12px; color: #aaa; margin-bottom: 16px; font-weight: 300; }
+.wa-question { font-size: 14px; color: var(--navy); font-weight: 500; margin-bottom: 10px; }
+.wa-row { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; }
+.wa-input { flex: 1; border: 1.5px solid #e0e6ed; border-radius: 6px; padding: 10px 14px; font-family: 'Poppins', sans-serif; font-size: 13px; color: #444; outline: none; background: #fff; transition: border-color 0.2s; }
+.wa-input:focus { border-color: var(--navy); }
+.wa-btn { background: var(--green); color: #fff; border: none; border-radius: 6px; padding: 10px 16px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+.wa-btn:hover:not(:disabled) { background: #5a7d61; }
+.wa-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.wa-sent { font-size: 12px; color: var(--green); font-weight: 500; }
+.email-fix { font-size: 11px; color: #bbb; }
+.email-fix span { color: var(--navy); cursor: pointer; text-decoration: underline; font-weight: 500; }
+.resend-box { background: #f9f6f0; border: 1px solid #e8dfc8; border-radius: 8px; padding: 14px 16px; margin-top: 10px; }
+.resend-label { font-size: 12px; color: #888; margin-bottom: 8px; font-weight: 500; }
+.resend-row { display: flex; gap: 8px; align-items: center; }
+.resend-input { flex: 1; border: 1.5px solid #e0e6ed; border-radius: 6px; padding: 9px 12px; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s; }
+.resend-input:focus { border-color: var(--gold); }
+.resend-btn { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 9px 14px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.resend-sent { font-size: 12px; color: var(--green); margin-top: 6px; font-weight: 500; }
+/* CTA */
+.cta-box { background: var(--navy); border-radius: 14px; padding: 36px; margin-top: 14px; text-align: center; animation: fadeUp 0.35s ease; }
+.cta-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 10px; font-weight: 600; }
+.cta-title { color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+.cta-sub { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.75; margin-bottom: 24px; font-weight: 300; }
+@media (max-width: 480px) {
+  .card, .result-hdr, .rsec, .cta-box { padding: 24px 18px; }
+  .score-row { flex-direction: column; gap: 16px; }
+  .dims-block { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; }
+  .email-confirm-row { flex-direction: column; }
+  .email-display, .send-btn { width: 100%; }
+  .q-text { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// ── STAGE CONTENT ──────────────────────────────────────────────────
+const STAGE_CONTENT = {
+  m2l: {
+    name: "Manager → Leader",
+    desc: "You've earned your management role. But somewhere between the promotion and today, you've realised that everything that made you a strong individual contributor isn't the same thing that makes a strong leader. This is the transition most people are underprepared for — and the one that shapes everything that follows.",
+    coaching: "Coaching at this stage is about building your leadership identity — finding what works for you, not copying someone else's style. We work on how you think, how you decide, how you build the kind of trust that makes a team want to follow you.",
+    reflect: "If your team were completely honest with you today — what would they say you most need to change?",
+  },
+  l2e: {
+    name: "Leader → Executive",
+    desc: "You've been leading long enough that the basics feel natural. But there's a ceiling you can sense. The skills that got you here — technical credibility, delivery, people management — are necessary but no longer sufficient for what's next.",
+    coaching: "Coaching at this stage is about expanding your aperture — how you see the organisation, how you influence without authority, how you operate in rooms where you're no longer the most technically competent person.",
+    reflect: "Where are you most often operating at the wrong level — going deeper than your role requires, rather than higher than it demands?",
+  },
+  f2l: {
+    name: "Founder → Leader",
+    desc: "You built something real. The business exists because of your vision and energy. And now that's the problem. The very thing that created the business is preventing it from growing. You can't scale yourself.",
+    coaching: "Coaching for founders is about separating the business from your identity — without losing what made you build it. We work on the structures you need, the conversations you've been avoiding, and the version of leadership that lets you work on the business rather than in it.",
+    reflect: "If you disappeared for two weeks — not planned, just gone — what would break first in your business?",
+  },
+  pivot: {
+    name: "Career Pivot",
+    desc: "You're competent. Possibly very competent. But you're no longer sure the thing you're competent at is the thing you want to keep doing. The hardest part is usually not the change itself — it's giving yourself permission to want something different.",
+    coaching: "Coaching through a career pivot is about clarity before action. Most people want to jump to the plan. But a plan built on unclear thinking rarely sticks. We start with what's actually driving the desire to change.",
+    reflect: "If the practical constraints didn't exist — income, expectations, the CV — what would you honestly be moving toward?",
+  },
+  aspire: {
+    name: "Aspiring Founder",
+    desc: "You haven't started yet. But you're thinking about it more than you'd admit. What you're sitting with is the gap between the story of starting a business and the reality of it — the decisions, the uncertainty, the identity shift.",
+    coaching: "Coaching for aspiring founders isn't about validating your idea. It's about validating you — whether you understand what you're getting into, whether your motivations are durable.",
+    reflect: "What's the real reason you haven't started yet — and is that reason protecting you, or stopping you?",
+  },
+  contrib: {
+    name: "IC → Manager",
+    desc: "You're good at what you do. Maybe excellent. And now you're being asked — or asking yourself — to take on leadership. The catch: the skills that made you exceptional as an individual contributor are not the same skills that make an effective manager.",
+    coaching: "Coaching at this stage is about building the right foundation before the habits of management calcify. We work on how you make the identity shift from doing to enabling, how you set expectations, and how you handle authority.",
+    reflect: "What's one thing you currently do yourself that — if you're honest — you're holding onto because you're not sure your team can do it as well?",
+  },
+};
+
+// ── QUESTIONS ─────────────────────────────────────────────────────
+const CAREER_GAP_Q = {
+  id: "careerGap",
+  text: "What best describes your current situation?",
+  opts: [
+    { label: "I'm still in my current role but actively planning to move" },
+    { label: "I've already stepped away and I'm figuring out what's next" },
+    { label: "I had a career gap earlier and I'm re-entering now" },
+    { label: "I'm between roles and currently available" },
+  ]
+};
+
+const QUESTIONS_BASE = [
+  {
+    id: "stage",
+    text: "What best describes where you are right now?",
+    opts: [
+      { label: "I'm a manager and I'm finding it harder than I expected", stage: "m2l" },
+      { label: "I've been leading for a while but I feel I've plateaued", stage: "l2e" },
+      { label: "I'm a founder and my business still depends on me too much", stage: "f2l" },
+      { label: "I'm thinking about a significant career change", stage: "pivot" },
+      { label: "I want to start something of my own but I haven't yet", stage: "aspire" },
+      { label: "I'm an individual contributor ready to step into leadership", stage: "contrib" },
+    ]
+  },
+  {
+    id: "word",
+    text: "When you think about your leadership today, what word comes to mind?",
+    multi: true, maxSelect: 2, noneOfThese: true,
+    opts: [
+      { label: "Stretched — too much on my plate" },
+      { label: "Stuck — not sure how to move forward" },
+      { label: "Uncertain — I second-guess myself often" },
+      { label: "Ready — for the next level, but not sure how to get there" },
+      { label: "Tired — of doing it the same way" },
+      { label: "Transitioning — things are changing and I need to adapt" },
+    ]
+  },
+  {
+    id: "availability",
+    text: "Your team — how would they honestly describe your availability as a leader?",
+    opts: [
+      { label: "\"Always there — sometimes too much so\"" },
+      { label: "\"Present when needed, but we wish for more\"" },
+      { label: "\"Hard to reach when things get busy\"" },
+      { label: "\"Doesn't apply — I'm not leading a team yet\"" },
+    ]
+  },
+  {
+    id: "decision",
+    text: "When a difficult decision needs to be made, what typically happens?",
+    opts: [
+      { label: "I make it quickly — sometimes too quickly" },
+      { label: "I think it through carefully, but second-guess myself after" },
+      { label: "I find it hard to decide without consensus" },
+      { label: "I delegate, but then worry the decision was wrong" },
+      { label: "I avoid it longer than I should" },
+    ]
+  },
+  {
+    id: "letgo",
+    text: "How comfortable are you letting go of work you know you could do better yourself?",
+    opts: [
+      { label: "Very comfortable — I've largely figured this out" },
+      { label: "Getting better, but it's still a real tension" },
+      { label: "I know I should, but I usually end up doing it myself" },
+      { label: "I find it almost impossible to let go" },
+    ]
+  },
+  {
+    id: "conflict",
+    text: "When there's conflict or tension — with your team, peers, or upward — how do you respond?",
+    opts: [
+      { label: "I address it directly and early" },
+      { label: "I address it, but it takes me longer than it should" },
+      { label: "I tend to smooth it over without really resolving it" },
+      { label: "I withdraw and wait for it to pass" },
+      { label: "I'm not sure I handle it well — it depends" },
+    ]
+  },
+  {
+    id: "clarity",
+    text: "How clear are you on where you want to be professionally in the next 3 years?",
+    opts: [
+      { label: "Very clear — I know exactly what I'm building toward" },
+      { label: "I have a direction but not a clear picture" },
+      { label: "I'm at a crossroads and genuinely unsure" },
+      { label: "I know what I don't want more than what I do" },
+    ]
+  },
+  {
+    id: "trigger",
+    text: "What's brought you to think about coaching right now?",
+    noneOfThese: true,
+    opts: [
+      { label: "A specific event — feedback, a promotion, a setback" },
+      { label: "A growing feeling that something needs to change" },
+      { label: "I've been thinking about it for a while and I'm finally ready" },
+      { label: "Someone recommended it to me" },
+      { label: "I'm being proactive — I want to grow before I have to" },
+    ]
+  },
+  {
+    id: "feedback",
+    text: "When did you last receive honest, direct feedback on your leadership?",
+    opts: [
+      { label: "Recently — I get regular, honest feedback" },
+      { label: "A few months ago" },
+      { label: "It's been a while — longer than I'd like" },
+      { label: "I rarely receive truly honest feedback" },
+      { label: "I'm not sure I've ever had it" },
+    ]
+  },
+  {
+    id: "want",
+    text: "What do you most want from a coaching relationship?",
+    multi: true, maxSelect: 2, noneOfThese: true,
+    opts: [
+      { label: "Clarity — someone to help me think more clearly" },
+      { label: "Accountability — I know what to do, I just don't do it" },
+      { label: "A safe space to be honest without consequences" },
+      { label: "Challenge — someone to push me beyond my comfort zone" },
+      { label: "Direction — help figuring out what's actually next for me" },
+    ]
+  },
+  {
+    id: "matters",
+    text: "What matters most to you right now?",
+    multi: true, maxSelect: 2, noneOfThese: true,
+    opts: [
+      { label: "Growing as a person, not just as a professional" },
+      { label: "Making a real impact — not just filling a role" },
+      { label: "Building something that outlasts me" },
+      { label: "Finding clarity in the noise" },
+      { label: "Being honest with myself about what I really want" },
+    ]
+  },
+  {
+    id: "location",
+    text: "One last thing — where are you based?",
+    opts: [
+      { label: "India" },
+      { label: "Outside India" },
+    ]
+  },
+];
+
+// ── HELPERS ───────────────────────────────────────────────────────
+function getStageKey(stageLabel) {
+  if (!stageLabel) return "m2l";
+  const match = QUESTIONS_BASE[0].opts.find(o => o.label === stageLabel);
+  return match ? match.stage : "m2l";
+}
+
+function getActiveQuestions(stageKey) {
+  const qs = [...QUESTIONS_BASE];
+  if (stageKey === "pivot") {
+    qs.splice(1, 0, CAREER_GAP_Q);
+  }
+  return qs;
+}
+
+function calcScores(answers) {
+  // SELF-AWARENESS
+  let sa = 60;
+  const words = Array.isArray(answers.word) ? answers.word : (answers.word ? [answers.word] : []);
+  const wordSA = {
+    "Uncertain — I second-guess myself often": 10,
+    "Ready — for the next level, but not sure how to get there": 15,
+    "Transitioning — things are changing and I need to adapt": 8,
+    "Tired — of doing it the same way": 5,
+    "Stretched — too much on my plate": 0,
+    "Stuck — not sure how to move forward": -5,
+  };
+  words.forEach(w => { if (wordSA[w] !== undefined) sa += wordSA[w]; });
+  const feedbackSA = {
+    "Recently — I get regular, honest feedback": 20,
+    "A few months ago": 10,
+    "It's been a while — longer than I'd like": 0,
+    "I rarely receive truly honest feedback": -10,
+    "I'm not sure I've ever had it": -15,
+  };
+  if (feedbackSA[answers.feedback] !== undefined) sa += feedbackSA[answers.feedback];
+  sa = Math.max(15, Math.min(95, sa));
+
+  // DECISION CONFIDENCE
+  const dcMap = {
+    "I make it quickly — sometimes too quickly": 72,
+    "I think it through carefully, but second-guess myself after": 48,
+    "I find it hard to decide without consensus": 38,
+    "I delegate, but then worry the decision was wrong": 52,
+    "I avoid it longer than I should": 28,
+  };
+  const dc = dcMap[answers.decision] || 52;
+
+  // DELEGATION COMFORT
+  const delMap = {
+    "Very comfortable — I've largely figured this out": 88,
+    "Getting better, but it's still a real tension": 58,
+    "I know I should, but I usually end up doing it myself": 33,
+    "I find it almost impossible to let go": 15,
+  };
+  const del = delMap[answers.letgo] || 52;
+
+  // CONFLICT NAVIGATION
+  const cnMap = {
+    "I address it directly and early": 88,
+    "I address it, but it takes me longer than it should": 63,
+    "I tend to smooth it over without really resolving it": 38,
+    "I withdraw and wait for it to pass": 23,
+    "I'm not sure I handle it well — it depends": 43,
+  };
+  const cn = cnMap[answers.conflict] || 52;
+
+  // DIRECTION CLARITY
+  const dirMap = {
+    "Very clear — I know exactly what I'm building toward": 88,
+    "I have a direction but not a clear picture": 63,
+    "I'm at a crossroads and genuinely unsure": 33,
+    "I know what I don't want more than what I do": 43,
+  };
+  const dir = dirMap[answers.clarity] || 52;
+
+  // GROWTH READINESS
+  let gr = 58;
+  const trigGR = {
+    "I'm being proactive — I want to grow before I have to": 28,
+    "I've been thinking about it for a while and I'm finally ready": 18,
+    "A growing feeling that something needs to change": 8,
+    "A specific event — feedback, a promotion, a setback": 3,
+    "Someone recommended it to me": 0,
+  };
+  if (trigGR[answers.trigger] !== undefined) gr += trigGR[answers.trigger];
+  const wants = Array.isArray(answers.want) ? answers.want : (answers.want ? [answers.want] : []);
+  if (wants.some(w => w && w.startsWith("Challenge"))) gr += 8;
+  if (wants.some(w => w && w.startsWith("Accountability"))) gr += 4;
+  const mattersList = Array.isArray(answers.matters) ? answers.matters : (answers.matters ? [answers.matters] : []);
+  if (mattersList.some(m => m && m.startsWith("Growing as a person"))) gr += 8;
+  if (mattersList.some(m => m && m.startsWith("Building something"))) gr += 4;
+  gr = Math.max(15, Math.min(95, gr));
+
+  const overall = Math.round((sa + dc + del + cn + dir + gr) / 6);
+  return {
+    overall,
+    dimensions: [
+      { key: "selfAwareness", label: "Self-awareness", score: sa },
+      { key: "decisionConfidence", label: "Decision confidence", score: dc },
+      { key: "delegationComfort", label: "Delegation comfort", score: del },
+      { key: "conflictNavigation", label: "Conflict navigation", score: cn },
+      { key: "directionClarity", label: "Direction clarity", score: dir },
+      { key: "growthReadiness", label: "Growth readiness", score: gr },
+    ]
+  };
+}
+
+function getTeaserObservation(dimensions) {
+  if (!dimensions || !dimensions.length) return "";
+  const sorted = [...dimensions].sort((a, b) => a.score - b.score);
+  const lowest = sorted[0];
+  const teasers = {
+    selfAwareness: "There's a pattern in how you describe yourself that's worth sitting with. It shows up in how you receive feedback — and what you do with it afterward.",
+    decisionConfidence: "There's a gap between how you make decisions and how you feel about them afterward. That gap is rarely about the quality of the decision itself.",
+    delegationComfort: "There's one dimension in your profile where your score drops sharply — and it's likely the thing your team notices before you do. It shows up in how decisions get made and who gets to make them.",
+    conflictNavigation: "How you handle tension — with your team, with peers, upward — is showing up clearly in your responses. What you do in those moments has a longer shadow than most leaders realise.",
+    directionClarity: "Your responses point to something underneath the surface about where you're headed. Clarity at this level is less about having a plan and more about something else entirely.",
+    growthReadiness: "There's a signal in what's brought you here and what you say you want from it. Those two things don't always point in the same direction — and that gap is worth examining.",
+  };
+  return teasers[lowest.key] || teasers.delegationComfort;
+}
+
+// For Formspree submission — not shown on screen
+const TENSION_OBSERVATIONS = {
+  decision: {
+    "I think it through carefully, but second-guess myself after": "You're not indecisive — you're over-correcting. The thinking is solid; it's the self-trust that needs work.",
+    "I find it hard to decide without consensus": "You value input, which is good. But leadership sometimes requires being comfortable with a decision not everyone agrees with.",
+    "I delegate, but then worry the decision was wrong": "Delegation without trust is just delayed doing. The anxiety after letting go is worth examining.",
+    "I avoid it longer than I should": "Avoidance is a decision too — one that usually costs more than the original choice.",
+    "I make it quickly — sometimes too quickly": "Speed is a strength. The question is whether it's being mistaken for leadership.",
+  },
+  letgo: {
+    "I know I should, but I usually end up doing it myself": "The gap between knowing and doing is where most leadership conversations need to happen.",
+    "I find it almost impossible to let go": "This isn't about trust in your team. It's about what control is protecting you from.",
+    "Getting better, but it's still a real tension": "The tension is healthy — it means you still care about quality. Coaching helps you channel that care into building others.",
+  },
+  conflict: {
+    "I tend to smooth it over without really resolving it": "Harmony at the surface often costs clarity underneath. Conflict avoidance stalls leadership progress.",
+    "I withdraw and wait for it to pass": "Waiting for conflict to pass rarely works the way we hope. It tends to move underground.",
+    "I'm not sure I handle it well — it depends": "There's no consistent principle guiding the response. A team notices that inconsistency.",
+  },
+  clarity: {
+    "I'm at a crossroads and genuinely unsure": "Genuine uncertainty is more useful than false clarity. The work is making the uncertainty productive rather than paralysing.",
+    "I know what I don't want more than what I do": "Knowing what you're moving away from is a start. Coaching helps turn that into direction.",
+  },
+  feedback: {
+    "I rarely receive truly honest feedback": "When people don't give honest feedback, it usually means they've decided it isn't safe to — or that it won't land.",
+    "I'm not sure I've ever had it": "Operating without honest feedback is like navigating without a map.",
+    "It's been a while — longer than I'd like": "Leaders who don't get feedback don't suddenly start getting it. They have to create the conditions for it.",
+  },
+};
+
+function getObservations(answers) {
+  const obs = [];
+  const wordMap = {
+    "Stretched — too much on my plate": "You named 'stretched' — which usually means you're carrying more than your role requires, not more than you're capable of.",
+    "Stuck — not sure how to move forward": "Feeling stuck at this level often means you're trying to solve a new problem with an old toolkit.",
+    "Uncertain — I second-guess myself often": "Self-doubt at the leadership level isn't weakness. It's often a sign of genuine awareness.",
+    "Ready — for the next level, but not sure how to get there": "Readiness without a clear path is frustrating — especially when you can see where you want to go but the route isn't obvious.",
+    "Tired — of doing it the same way": "Tiredness at this level is often the first honest signal that something needs to change.",
+    "Transitioning — things are changing and I need to adapt": "Transitions are when identity and role stop matching up. That dissonance is where the most important growth happens.",
+  };
+  const words = Array.isArray(answers.word) ? answers.word : (answers.word ? [answers.word] : []);
+  words.forEach(w => { if (wordMap[w]) obs.push(wordMap[w]); });
+  if (answers.decision && TENSION_OBSERVATIONS.decision[answers.decision]) obs.push(TENSION_OBSERVATIONS.decision[answers.decision]);
+  if (answers.letgo && TENSION_OBSERVATIONS.letgo[answers.letgo]) obs.push(TENSION_OBSERVATIONS.letgo[answers.letgo]);
+  if (answers.conflict && TENSION_OBSERVATIONS.conflict[answers.conflict]) obs.push(TENSION_OBSERVATIONS.conflict[answers.conflict]);
+  if (answers.clarity && TENSION_OBSERVATIONS.clarity[answers.clarity]) obs.push(TENSION_OBSERVATIONS.clarity[answers.clarity]);
+  if (answers.feedback && TENSION_OBSERVATIONS.feedback[answers.feedback]) obs.push(TENSION_OBSERVATIONS.feedback[answers.feedback]);
+  return obs.slice(0, 4);
+}
+
+function getTriggerNote(trigger) {
+  const map = {
+    "A specific event — feedback, a promotion, a setback": "Something specific brought you here — and that specificity is useful. It means there's a clear entry point for the work.",
+    "A growing feeling that something needs to change": "A growing feeling is worth trusting. By the time it reaches the surface, it's usually been building longer than we realise.",
+    "I've been thinking about it for a while and I'm finally ready": "Readiness that's been building for a while tends to be durable. This isn't an impulse — and that matters.",
+    "Someone recommended it to me": "Someone in your life saw something worth developing. That's worth taking seriously.",
+    "I'm being proactive — I want to grow before I have to": "The leaders who work on themselves before they're forced to are the ones who do the most interesting work over time.",
+  };
+  return map[trigger] || "";
+}
+
+// ── APP ────────────────────────────────────────────────────────────
+function App() {
+  const [phase, setPhase] = useState("intro");
+
+  // Intro fields
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [nameErr, setNameErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+
+  // Profile fields
+  const [profile, setProfile] = useState({ role: "", yearsExp: "", teamSize: "" });
+  const [profileErr, setProfileErr] = useState("");
+
+  // Audit
+  const [qIdx, setQIdx] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [noneText, setNoneText] = useState("");
+  const [showNoneText, setShowNoneText] = useState(false);
+
+  // Results
+  const [scores, setScores] = useState(null);
+  const [whatsapp, setWhatsapp] = useState("");
+  const [waSent, setWaSent] = useState(false);
+  const [waSending, setWaSending] = useState(false);
+  const [showResendBox, setShowResendBox] = useState(false);
+  const [resendEmail, setResendEmail] = useState("");
+  const [resendSent, setResendSent] = useState(false);
+
+  // Derived
+  const stageKey = getStageKey(answers.stage);
+  const QUESTIONS = getActiveQuestions(stageKey);
+  const currentQ = QUESTIONS[qIdx];
+  const total = QUESTIONS.length;
+  const stageData = STAGE_CONTENT[stageKey] || STAGE_CONTENT.m2l;
+  const bookingUrl = "https://calendar.app.google/C6r2m1aGPDJaTeEM9";
+
+  const progress = phase === "audit" ? (qIdx / total) * 100
+                 : phase === "results" ? 100 : 0;
+
+  // Reset none-of-these state on question change
+  useEffect(() => {
+    setNoneText("");
+    setShowNoneText(false);
+  }, [qIdx]);
+
+  // ── INTRO ──────────────────────────────────────────────────
+  function handleBegin() {
+    if (!name.trim()) { setNameErr("Please enter your name"); return; }
+    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) { setEmailErr("Please enter a valid email"); return; }
+    setNameErr(""); setEmailErr("");
+    // STARTED ping — fires silently
+    fetch("https://formspree.io/f/xqeoglwe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        _subject: `[Leadership STARTED] ${name}`,
+        name, email,
+        status: "STARTED — assessment not yet submitted",
+      }),
+    }).catch(() => {});
+    setPhase("profile");
+  }
+
+  // ── PROFILE ────────────────────────────────────────────────
+  function handleProfileNext() {
+    if (!profile.yearsExp) { setProfileErr("Please select your years of experience"); return; }
+    setProfileErr("");
+    setPhase("audit");
+  }
+
+  // ── AUDIT ──────────────────────────────────────────────────
+  function advanceQuestion(newAnswers) {
+    const newStageKey = getStageKey(newAnswers.stage);
+    const newQs = getActiveQuestions(newStageKey);
+    const nextIdx = qIdx + 1;
+    if (nextIdx < newQs.length) {
+      setQIdx(nextIdx);
+    } else {
+      const result = calcScores(newAnswers);
+      setScores(result);
+      setPhase("results");
+      // Auto-fire Formspree as soon as scores are generated
+      fireCompleteSubmission(newAnswers, newStageKey, result);
+    }
+  }
+
+  function fireCompleteSubmission(finalAnswers, finalStageKey, result) {
+    const sd = STAGE_CONTENT[finalStageKey] || STAGE_CONTENT.m2l;
+    const obs = getObservations(finalAnswers);
+    fetch("https://formspree.io/f/xqeoglwe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        _subject: `[Leadership COMPLETE] ${name} — ${sd.name}`,
+        name,
+        email,
+        profile_role: profile.role || "(not provided)",
+        profile_yearsExperience: profile.yearsExp,
+        profile_teamSize: profile.teamSize || "(not provided)",
+        stage: finalAnswers.stage,
+        stageKey: finalStageKey,
+        overallScore: result.overall,
+        dimensionScores: result.dimensions.map(d => `${d.label}: ${d.score}`).join(", "),
+        ...Object.fromEntries(
+          Object.entries(finalAnswers).map(([k, v]) => [k, Array.isArray(v) ? v.join(" | ") : v])
+        ),
+        topObservations: obs.join(" || "),
+        triggerNote: getTriggerNote(finalAnswers.trigger),
+        coachingContext: sd.coaching,
+        reflectionQuestion: sd.reflect,
+        status: "COMPLETE",
+      }),
+    }).catch(() => {});
+  }
+
+  function handleSingleOpt(label) {
+    if (label === "None of these") {
+      setShowNoneText(true);
+      setAnswers({ ...answers, [currentQ.id]: "None of these" });
+      return;
+    }
+    setShowNoneText(false);
+    setNoneText("");
+    const newAnswers = { ...answers, [currentQ.id]: label };
+    setAnswers(newAnswers);
+    setTimeout(() => advanceQuestion(newAnswers), 280);
+  }
+
+  function handleMultiOpt(label) {
+    const current = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id] : [];
+    if (label === "None of these") {
+      if (current.includes("None of these")) {
+        setAnswers({ ...answers, [currentQ.id]: [] });
+        setShowNoneText(false);
+        setNoneText("");
+      } else {
+        setAnswers({ ...answers, [currentQ.id]: ["None of these"] });
+        setShowNoneText(true);
+      }
+      return;
+    }
+    const withoutNone = current.filter(a => a !== "None of these");
+    setShowNoneText(false);
+    setNoneText("");
+    if (withoutNone.includes(label)) {
+      setAnswers({ ...answers, [currentQ.id]: withoutNone.filter(a => a !== label) });
+    } else {
+      const max = currentQ.maxSelect || 2;
+      if (withoutNone.length < max) {
+        setAnswers({ ...answers, [currentQ.id]: [...withoutNone, label] });
+      }
+    }
+  }
+
+  function handleMultiNext() {
+    const current = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id] : [];
+    if (current.length === 0) return;
+    let finalAnswer = current;
+    if (current.includes("None of these")) {
+      if (!noneText.trim()) return;
+      finalAnswer = [noneText.trim()];
+    }
+    const newAnswers = { ...answers, [currentQ.id]: finalAnswer };
+    setAnswers(newAnswers);
+    advanceQuestion(newAnswers);
+  }
+
+  function handleNoneTextNext() {
+    if (!noneText.trim()) return;
+    const newAnswers = { ...answers, [currentQ.id]: noneText.trim() };
+    setAnswers(newAnswers);
+    advanceQuestion(newAnswers);
+  }
+
+  // ── RESULTS ────────────────────────────────────────────────
+  async function handleWhatsApp() {
+    if (!whatsapp.trim() || waSending || waSent) return;
+    setWaSending(true);
+    try {
+      await fetch("https://formspree.io/f/xqeoglwe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: `[Leadership WHATSAPP] ${name}`,
+          name, email,
+          whatsapp: whatsapp.trim(),
+          status: "WHATSAPP REQUEST",
+        }),
+      });
+    } catch(e) {}
+    setWaSending(false);
+    setWaSent(true);
+  }
+
+  async function handleResend() {
+    if (!resendEmail.trim() || !/\S+@\S+\.\S+/.test(resendEmail)) return;
+    const obs = getObservations(answers);
+    try {
+      await fetch("https://formspree.io/f/xqeoglwe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: `[Leadership RESEND] ${name} — correct email: ${resendEmail.trim()}`,
+          name,
+          originalEmail: email,
+          correctedEmail: resendEmail.trim(),
+          stageKey,
+          overallScore: scores ? scores.overall : "",
+          dimensionScores: scores ? scores.dimensions.map(d => `${d.label}: ${d.score}`).join(", ") : "",
+          topObservations: obs.join(" || "),
+          status: "RESEND — corrected email",
+        }),
+      });
+    } catch(e) {}
+    setResendSent(true);
+    setShowResendBox(false);
+  }
+
+  // ── MULTI-SELECT UTILS ─────────────────────────────────────
+  function isMultiSelected(label) {
+    if (!currentQ) return false;
+    const current = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id] : [];
+    return current.includes(label);
+  }
+
+  function isAtMax() {
+    if (!currentQ || !currentQ.multi) return false;
+    const current = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id].filter(a => a !== "None of these") : [];
+    return current.length >= (currentQ.maxSelect || 2);
+  }
+
+  function multiCount() {
+    if (!currentQ || !currentQ.multi) return 0;
+    const current = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id].filter(a => a !== "None of these") : [];
+    return current.length;
+  }
+
+  function multiCanNext() {
+    if (!currentQ) return false;
+    const current = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id] : [];
+    if (current.length === 0) return false;
+    if (current.includes("None of these")) return noneText.trim().length > 0;
+    return true;
+  }
+
+  // ── RENDER ─────────────────────────────────────────────────
+  return (
+    <div>
+      {/* HEADER */}
+      <div className="hdr">
+        <div className="hdr-logo">WA</div>
+        <span className="hdr-name">The What Academy</span>
+        {phase === "audit" && <span className="hdr-sub">{qIdx + 1} of {total}</span>}
+        {phase === "results" && <span className="hdr-sub">Your Profile</span>}
+      </div>
+      <div className="prog-bar">
+        <div className="prog-fill" style={{ width: progress + "%" }} />
+      </div>
+
+      <div className="wrap">
+
+        {/* ── INTRO ─────────────────────────────────── */}
+        {phase === "intro" && (
+          <div className="card">
+            <div className="badge">The What Academy · Leadership Assessment</div>
+            <h1 className="hero-t">Understand where you are<br />in your <em>leadership journey</em>.</h1>
+            <p className="sub">12 questions. 5 minutes. No generic advice.<br />At the end, you'll see a clear picture of where you stand — and what coaching could look like from here.</p>
+            <div className="pills">
+              <span className="pill">12 questions</span>
+              <span className="pill">~5 minutes</span>
+              <span className="pill">Personalised profile</span>
+              <span className="pill">No obligation</span>
+            </div>
+            <div className="form-group">
+              <div className="form-field">
+                <input className="form-input" type="text" placeholder="Your first name" value={name}
+                  onChange={e => { setName(e.target.value); setNameErr(""); }}
+                  style={nameErr ? { borderColor: "#c0392b" } : {}} />
+                {nameErr && <div className="form-err">{nameErr}</div>}
+              </div>
+              <div className="form-field">
+                <input className="form-input" type="email" placeholder="Your email address" value={email}
+                  onChange={e => { setEmail(e.target.value); setEmailErr(""); }}
+                  style={emailErr ? { borderColor: "#c0392b" } : {}} />
+                {emailErr && <div className="form-err">{emailErr}</div>}
+              </div>
+              <button className="btn" onClick={handleBegin} style={{ marginTop: 4 }}>
+                Begin the Assessment →
+              </button>
+              <p style={{ fontSize: 11, color: "#bbb", marginTop: 4, fontWeight: 300 }}>
+                No spam. Your responses are used only to generate your profile and, if you choose to book, to give Pradeep context before your call.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── PROFILE ───────────────────────────────── */}
+        {phase === "profile" && (
+          <div className="card">
+            <div className="q-num">Before we begin</div>
+            <div className="profile-title">A little context first, {name}.</div>
+            <div className="profile-sub">Three quick questions — they help make your profile more accurate. Only years of experience is required.</div>
+            <div className="form-group">
+              <div className="form-field">
+                <div className="form-label">What's your current role or title?</div>
+                <input className="form-input" type="text" placeholder="e.g. Product Manager, Founder, VP Sales…"
+                  value={profile.role}
+                  onChange={e => setProfile({ ...profile, role: e.target.value })} />
+              </div>
+              <div className="form-field">
+                <div className="form-label">Years of professional experience *</div>
+                <select className="form-input" value={profile.yearsExp}
+                  onChange={e => { setProfile({ ...profile, yearsExp: e.target.value }); setProfileErr(""); }}
+                  style={profileErr ? { borderColor: "#c0392b" } : {}}>
+                  <option value="">Select…</option>
+                  <option value="0–3 years">0–3 years</option>
+                  <option value="3–7 years">3–7 years</option>
+                  <option value="7–15 years">7–15 years</option>
+                  <option value="15–25 years">15–25 years</option>
+                  <option value="25+ years">25+ years</option>
+                </select>
+                {profileErr && <div className="form-err">{profileErr}</div>}
+              </div>
+              <div className="form-field">
+                <div className="form-label">Team size (people who report to you directly or indirectly)</div>
+                <select className="form-input" value={profile.teamSize}
+                  onChange={e => setProfile({ ...profile, teamSize: e.target.value })}>
+                  <option value="">Select…</option>
+                  <option value="None — I don't manage a team">None — I don't manage a team</option>
+                  <option value="1–5 people">1–5 people</option>
+                  <option value="5–20 people">5–20 people</option>
+                  <option value="20–50 people">20–50 people</option>
+                  <option value="50+ people">50+ people</option>
+                </select>
+              </div>
+              <button className="btn" onClick={handleProfileNext} style={{ marginTop: 4 }}>
+                Continue →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── AUDIT ─────────────────────────────────── */}
+        {phase === "audit" && currentQ && (
+          <div key={qIdx} className="card">
+            <div className="q-num">Question {qIdx + 1} of {total}</div>
+            <div className="q-text">{currentQ.text}</div>
+            {currentQ.multi && (
+              <div className="q-hint">
+                Select up to {currentQ.maxSelect || 2}
+                {multiCount() > 0 ? ` — ${multiCount()} selected` : ""}
+              </div>
+            )}
+            <div className="opts">
+              {currentQ.opts.map(opt => {
+                if (currentQ.multi) {
+                  const sel = isMultiSelected(opt.label);
+                  const atMax = isAtMax() && !sel;
+                  return (
+                    <button key={opt.label}
+                      className={`opt${sel ? " sel" : ""}${atMax ? " at-max" : ""}`}
+                      onClick={() => !atMax && handleMultiOpt(opt.label)}>
+                      {opt.label}
+                    </button>
+                  );
+                } else {
+                  const sel = answers[currentQ.id] === opt.label;
+                  return (
+                    <button key={opt.label}
+                      className={`opt${sel ? " sel" : ""}`}
+                      onClick={() => handleSingleOpt(opt.label)}>
+                      {opt.label}
+                    </button>
+                  );
+                }
+              })}
+              {currentQ.noneOfThese && (
+                <button
+                  className={`opt none-opt${
+                    currentQ.multi
+                      ? (isMultiSelected("None of these") ? " sel" : "")
+                      : (answers[currentQ.id] === "None of these" ? " sel" : "")
+                  }`}
+                  onClick={() => currentQ.multi ? handleMultiOpt("None of these") : handleSingleOpt("None of these")}>
+                  None of these
+                </button>
+              )}
+            </div>
+
+            {/* Free text for None of these */}
+            {showNoneText && (
+              <div className="none-input">
+                <input type="text" placeholder="Tell us in your own words…"
+                  value={noneText} onChange={e => setNoneText(e.target.value)} autoFocus />
+              </div>
+            )}
+
+            {/* Next button for multi-select and none-of-these */}
+            {(currentQ.multi || showNoneText) && (
+              <div className="next-wrap">
+                <button className="btn"
+                  onClick={currentQ.multi ? handleMultiNext : handleNoneTextNext}
+                  disabled={currentQ.multi ? !multiCanNext() : !noneText.trim()}>
+                  Next →
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── RESULTS ───────────────────────────────── */}
+        {phase === "results" && scores && (
+          <>
+            {/* Stage + Score */}
+            <div className="result-hdr">
+              <div className="stage-badge-lbl">Your leadership stage</div>
+              <div className="stage-name">{stageData.name}</div>
+              <div className="stage-desc">{stageData.desc}</div>
+
+              <div className="score-row">
+                <div className="score-big">
+                  <div className="score-num">{scores.overall}</div>
+                  <div className="score-unit">out of 100</div>
+                </div>
+                <div className="dims-block">
+                  <div className="dims-title">6-dimension breakdown 🔒</div>
+                  {scores.dimensions.map(d => (
+                    <div key={d.key} className="dim-row">
+                      <div className="dim-label">{d.label}</div>
+                      <div className="dim-bar-empty" />
+                    </div>
+                  ))}
+                  <div className="dims-note">Your full breakdown is on its way — usually same day.</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Teaser */}
+            <div className="rsec">
+              <div className="rsec-label">One thing we noticed</div>
+              <p>{getTeaserObservation(scores.dimensions)}</p>
+              <div className="rsec-footer">
+                Your full profile — what all 6 scores mean together, the pattern they reveal, and a reflection question to start with — is coming to your inbox.
+              </div>
+            </div>
+
+            {/* Email + WhatsApp section */}
+            <div className="rsec">
+              <div className="rsec-label">Your report</div>
+              <div className="email-sent-display">{email}</div>
+              <div className="email-sent-note">We're sharing your full profile to this email — usually same day.</div>
+
+              <div className="wa-question">Want it on WhatsApp too?</div>
+              {!waSent ? (
+                <div className="wa-row">
+                  <input className="wa-input" type="text"
+                    placeholder="+91 or international number"
+                    value={whatsapp} onChange={e => setWhatsapp(e.target.value)} />
+                  <button className="wa-btn" onClick={handleWhatsApp}
+                    disabled={!whatsapp.trim() || waSending || waSent}>
+                    {waSending ? "Sending…" : "Yes →"}
+                  </button>
+                </div>
+              ) : (
+                <div className="wa-sent" style={{marginBottom: 14}}>Got it — Pradeep will reach out on WhatsApp too.</div>
+              )}
+
+              {!resendSent ? (
+                <>
+                  <div className="email-fix">
+                    Not your email? <span onClick={() => setShowResendBox(!showResendBox)}>Correct it here →</span>
+                  </div>
+                  {showResendBox && (
+                    <div className="resend-box">
+                      <div className="resend-label">Enter the right email and we'll resend your profile there.</div>
+                      <div className="resend-row">
+                        <input className="resend-input" type="email"
+                          placeholder="Correct email address"
+                          value={resendEmail} onChange={e => setResendEmail(e.target.value)} autoFocus />
+                        <button className="resend-btn" onClick={handleResend}
+                          disabled={!resendEmail.trim() || !/\S+@\S+\.\S+/.test(resendEmail)}>
+                          Resend →
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="resend-sent">Resent to {resendEmail} ✓</div>
+              )}
+            </div>
+
+            {/* Book CTA */}
+            <div className="cta-box">
+              <div className="cta-tag">Don't want to wait?</div>
+              <div className="cta-title">Book a Discovery Session</div>
+              <div className="cta-sub">60 minutes with Pradeep.<br />Your profile goes to him before the call.</div>
+              <a href={bookingUrl} target="_blank" rel="noopener noreferrer"
+                className="btn btn-g"
+                style={{ display: "inline-block", textDecoration: "none", fontSize: 15, padding: "16px 40px" }}>
+                Book a session →
+              </a>
+            </div>
+
+            {/* Footer */}
+            <div style={{ textAlign: "center", marginTop: 28, paddingBottom: 20 }}>
+              <p style={{ fontSize: 12, color: "#bbb", fontWeight: 300 }}>
+                <a href="https://thewhatacademy.com" style={{ color: "#bbb" }}>thewhatacademy.com</a>
+                &nbsp;·&nbsp;
+                <a href="https://whyandhow.in" style={{ color: "#bbb" }}>whyandhow.in</a>
+              </p>
+            </div>
+          </>
+        )}
+
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
